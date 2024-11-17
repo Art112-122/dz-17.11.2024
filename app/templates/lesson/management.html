@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% include 'nav_top.html' %}
+
+{% block main %}
+  {% if iterable %}
+    <table>
+      {% for item in iterable %}
+      <tr>
+        <td>
+          <a href="{{ url_for('group_get', id=item.id)}}">{{item}}</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <h1>Відсутні будь-які елементи</h1>
+  {% endif %}
+
+  <form method="post">
+      <p>
+      <label for="theme">theme</label>
+      <input name="theme" type="text">
+    </p>
+    <p>
+      <label for="groups">Groups</label>
+      <select name="groups" id="groups" multiple>
+
+        {% for item in groups %}
+          <option value="{{ item.id }}" {% if item.selected %}selected{% endif %}>{{ item }}</option>
+        {% endfor %}
+      </select>
+
+    </p>
+    <p><button type="submit">ADD</button></p>
+
+  </form>
+{% endblock main %}
